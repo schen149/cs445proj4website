@@ -276,73 +276,36 @@
           </div>
         </div>
         <div class="panel-body">
-          <h4>Color2Gray</h4>
+          <h4>Angular Mapping</h4>
           <p>
-            The method here solves a least square problem to minimize the difference between result gradient and the one with the maximum magnitude among source gradients of each RGB channel.
-            It also minimizes the difference between top left result pixel and top left rgb2gray pixel,
-            in order to fix the solution constant. It preserves the gradients of the source image better than rgb2gray.
-          </p>
-          <p>
-            Here are the results,
-            with the rgb2gray image as "Before" and the least square method image as "After".
+            My method of converting angular mapping from the mirror ball format is based on the following observation.
+			Assume that the mirror ball image lies on XY-plane, with origin at center of the image/mirrorball. Then the 
+			azimuth of the reflection vectors (around XY-plane) should resemble the azimuth in the resulting angular map. 
+			While the magnitude of elevation is proportional to the distance from center in the angular map. In this way, 
+			conversion is done using similar method in the previous section.
+			<br/>
+			Below is the mirror ball HDR log irradiance image for comparison and angular map image.
           </p>
           <div class="row">
-            <img src="img/color_blind4.png" class="col-sm-3 col-xs-12" />
-            <div class="col-sm-3 col-xs-12">
-              <div class="img-compare">
-                <img src="img/color_blind4_gray_direct.png" width="100%" />
-                <img src="img/color_blind4_gray.png" width="100%"/>
-              </div>
-            </div>
-            <img src="img/color_blind8.png" class="col-sm-3 col-xs-12" />
-            <div class="col-sm-3 col-xs-12">
-              <div class="img-compare">
-                <img src="img/color_blind8_gray_direct.png" width="100%" />
-                <img src="img/color_blind8_gray.png" width="100%" />
-              </div>
-            </div>
+            <img src="img/ball_hdr_response_log.jpg" class="col-sm-6 col-xs-12" />
+			<img src="img/angular.jpg" class="col-sm-6 col-xs-12" />
           </div>
-
-          <hr>
-
-          <h4>Laplacian Pyramid Blending</h4>
-          <p>
-            The Laplacian pyramid method uses the Gaussian pyramids of the mask to blend the Laplacian pyramids of the source and the target image.
-            It then collapses the result Laplacian pyramids to find the result image.
-            Therefore, it transitions lower frequency details more slowly.
-            It can preserve the color of the source image better than the Poisson method,
-            but the blending might not look as natural.<br/>
-            To collapse the pyramids, the sub-sampled image in the last round of pyramid construction is used as the base Laplacian image.
+		  <p>
+		  <br/>
+            I think one disadvantage of angular mapping is that on the edge of angular map, a lot of information (pixel) is cramming together.
+			So when reconstructing using angular mapping, There could be loss of information during the process.
           </p>
-
+		  <hr>
+		  <h4>Vertical Cross Mapping</h4>
           <p>
-            The Laplacian method produces a slightly better result for the image of Jensun Huang.
+            Vertical cross mapping is more intuitive -- simply imagine youself at the center of the box, see what the reflection vectors would look like.
+			And... voilà!
+			<br/><br/>
+			Below is the mirror ball HDR log irradiance image for comparison and vertical cross map image.
           </p>
           <div class="row">
-            <img src="img/star.jpg" class="col-sm-4 col-xs-12" />
-            <img src="img/huang_small.jpg" class="col-sm-4 col-xs-12" />
-            <img src="img/huang_small_laplacian_temp.jpg" class="col-sm-4 col-xs-12" />
-          </div>
-          <br/>
-          <div class="row">
-            <img src="img/huang_small_laplacian.jpg" class="col-sm-8 col-sm-offset-2 col-xs-12" />
-          </div>
-
-          <hr>
-
-          <p>
-            Here the Laplacian method preserves the color of the UFO better.
-            It also preserves high frequency details around the UFO without blending artifacts.
-            The blending displays a dark region around it, though.
-          </p>
-          <div class="row">
-            <img src="img/ufo2.jpg" class="col-sm-4 col-xs-12" />
-            <img src="img/siebel_small.jpg" class="col-sm-4 col-xs-12" />
-            <img src="img/siebel_small_laplacian_temp.jpg" class="col-sm-4 col-xs-12" />
-          </div>
-          <br/>
-          <div class="row">
-            <img src="img/siebel_small_laplacian.jpg" class="col-sm-8 col-sm-offset-2 col-xs-12" />
+		    <img src="img/ball_hdr_response_log.jpg" class="col-sm-6 col-xs-12" />
+            <img src="img/vert.jpg" class="col-sm-6 col-xs-12" />
           </div>
         </div>
       </div>
