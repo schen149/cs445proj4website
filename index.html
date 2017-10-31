@@ -43,9 +43,16 @@
             <img src="img/ball_4.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1.3 s<br>ISO: 100" />
             <img src="img/ball_5.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 5 s<br>ISO: 100" />
           </div>
+
+          <hr>
           <h4>Naive Merging</h4>
           <p>
-			Here is the estimated log irradiance for each exposure. 
+            Here is the estimated log irradiance for each exposure.
+            Shadows in dark images and highlights in bright images are very noisy with no detail.
+            The irradiances don't look the same,
+            as the method directly scales the exposures,
+            assuming that g(Z) = ln(Z),
+            which is not true here.
           </p>
 		  <div class="row">
             <img src="img/ball_hdr_naive_log_1.jpg" class="col-xs-6" />
@@ -55,37 +62,30 @@
 			<img src="img/ball_hdr_naive_log_3.jpg" class="col-xs-6" />
 			<img src="img/ball_hdr_naive_log_4.jpg" class="col-xs-6" />
           </div>
-		  <p>
-			<br/>
-			Below is the merged, HDR log radiance image. 
+
+          <br/>
+          <p>
+            Below is the merged, HDR log radiance image.
           </p>
 		  <div class="row">
             <img src="img/ball_hdr_naive_log.jpg" class="col-xs-12" />
 		  </div>
-		  <hr>
-		  <h4>LDR Merging without under- and over-exposure</h4>
+
+          <hr>
+          <h4>LDR Merging Without Under- and Over-exposure</h4>
           <p>
-			Here is the estimated log irradiance for each exposure. 
-          </p>
-		  <div class="row">
-            <img src="img/ball_hdr_weighted_log_1.jpg" class="col-xs-6" />
-			<img src="img/ball_hdr_weighted_log_2.jpg" class="col-xs-6" />
-		  </div>
-		  <div class="row">
-			<img src="img/ball_hdr_weighted_log_3.jpg" class="col-xs-6" />
-			<img src="img/ball_hdr_weighted_log_4.jpg" class="col-xs-6" />
-          </div>
-		  <p>
-			<br/>
-			Below is the merged, HDR log radiance image. 
+            The estimated log irradiances are obviously the same as the naive method.
+            Below is the merged, HDR log radiance image from a weighted average.
           </p>
 		  <div class="row">
             <img src="img/ball_hdr_weighted_log.jpg" class="col-xs-12" />
 		  </div>
-		  <hr>
-		  <h4>LDR merging and response function estimation</h4>
+
+          <hr>
+          <h4>LDR Merging with Response Function Estimation</h4>
           <p>
-			Here is the estimated log irradiance for each exposure. 
+            Here is the estimated log irradiance for each exposure.
+            With a correct response function, the irradiances now look the same.
           </p>
 		  <div class="row">
             <img src="img/ball_hdr_response_log_1.jpg" class="col-xs-6" />
@@ -95,22 +95,37 @@
 			<img src="img/ball_hdr_response_log_3.jpg" class="col-xs-6" />
 			<img src="img/ball_hdr_response_log_4.jpg" class="col-xs-6" />
           </div>
-		  <p>
-			<br/>
-			Here are plots of g functions for R,G,B channels.
+
+          <br/>
+          <p>
+            Here are plots of the estimated response functions for R,G,B channels.
+            We use lambda = 4.0 so that the image looks smooth.
           </p>
 		  <div class="row">
             <img src="img/CaptureOne_small.svg" class="col-xs-12" />
 		  </div>
-		  <p>
-			<br/>
-			Below is the merged, HDR log radiance image. 
+
+          <br/>
+          <p>
+            Below is the merged, HDR log radiance image based on the estimated response function.
           </p>
 		  <div class="row">
             <img src="img/ball_hdr_response_log.jpg" class="col-xs-12" />
 		  </div>
-		  <hr>
-		  <h4>Comparison & Analysis</h4>
+
+          <hr>
+          <h4>Comparison &amp; Analysis</h4>
+          <p>
+            The shadows and highlights of the naive result are also very noisy due to the noisy scaled source images.<br>
+            Since under- and over-exposed pixels are given little weight,
+            the weighted method significantly reduces such noise,
+            producing a clean image.
+            However, there are still artifacts in shadows and highlights,
+            such as the view outside the windows,
+            due to the incorrect response function.<br>
+            The response method correctly estimate the function,
+            so that all shadow and highlight areas are natural.
+          </p>
 		  <div class="row">
 		    <div class="col-sm-6 col-xs-12">
               <div class="img-compare">
