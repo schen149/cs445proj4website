@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CS 445 Project #4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
+  <link rel="stylesheet" href="css/twentytwenty.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/jquery.event.move.js"></script>
+  <script src="js/jquery.twentytwenty.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="page-header" id="banner">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1>CS 445 Project #4</h1>
+        <p class="lead">Xiaotian Le (xle2) & Sihao Chen (schen149)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Recovering HDR Radiance Map</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+		  <h4>Data Collection</h4>
+		  
+          <h4>Naive Merging</h4>
+          <p>
+			Here is the estimated log irradiance for each exposure. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_naive_log_1.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_naive_log_2.jpg" class="col-xs-6" />
+		  </div>
+		  <div class="row">
+			<img src="img/ball_hdr_naive_log_3.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_naive_log_4.jpg" class="col-xs-6" />
+          </div>
+		  <p>
+			<br/>
+			Below is the merged, HDR log radiance image. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_naive_log.jpg" class="col-xs-12" />
+		  </div>
+		  <hr>
+		  <h4>LDR Merging without under- and over-exposure</h4>
+          <p>
+			Here is the estimated log irradiance for each exposure. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_weighted_log_1.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_weighted_log_2.jpg" class="col-xs-6" />
+		  </div>
+		  <div class="row">
+			<img src="img/ball_hdr_weighted_log_3.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_weighted_log_4.jpg" class="col-xs-6" />
+          </div>
+		  <p>
+			<br/>
+			Below is the merged, HDR log radiance image. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_weighted_log.jpg" class="col-xs-12" />
+		  </div>
+		  <hr>
+		  <h4>LDR merging and response function estimation</h4>
+          <p>
+			Here is the estimated log irradiance for each exposure. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_response_log_1.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_response_log_2.jpg" class="col-xs-6" />
+		  </div>
+		  <div class="row">
+			<img src="img/ball_hdr_response_log_3.jpg" class="col-xs-6" />
+			<img src="img/ball_hdr_response_log_4.jpg" class="col-xs-6" />
+          </div>
+		  <p>
+			<br/>
+			Here are plots of g functions for R,G,B channels.
+          </p>
+		  <div class="row">
+            <img src="img/CaptureOne_small.svg" class="col-xs-12" />
+		  </div>
+		  <p>
+			<br/>
+			Below is the merged, HDR log radiance image. 
+          </p>
+		  <div class="row">
+            <img src="img/ball_hdr_response_log.jpg" class="col-xs-12" />
+		  </div>
+		  <hr>
+		  <h4>Comparison & Analysis</h4>
+		  <div class="row">
+		    <div class="col-sm-6 col-xs-12">
+              <div class="img-compare">
+                <img src="img/ball_hdr_naive_log.jpg" />
+                <img src="img/ball_hdr_weighted_log.jpg" />
+              </div>
+            </div>
+			<div class="col-sm-6 col-xs-12">
+              <div class="img-compare">
+                <img src="img/ball_hdr_weighted_log.jpg" />
+                <img src="img/ball_hdr_response_log.jpg" />
+              </div>
+            </div>
+		  </div>
+        </div>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Panoramic Transformations</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <h4>Equirectangular transformation</h4>
+          <p>
+            For Equirectangular transformation, we first estimates the normal vector of the mirror ball at each pixel location. 
+			By assuming that the mirror is a perfect sphere centered at the center of the image, and the image lies on the XY-plane, 
+			we get the Z component of the normal vector by solving X^2 + Y^2 + Z^2 = R^2. 
+			From the normal vectors and a fixed viewing direction, we can calculate the reflection vector on each pixel of the mirrorball image.  
+			Then we convert reflection vectors obtained to spherical coordinates. 
+			Becuase the X axis of the equirectangular map corresponds to the latitude, and Y axis corresponds to the longtitude, 
+			we estimate pixel value (by separate color channels) of equirectangular map from the interpolation of the spherical coordinates and the corresponding pixel value.
+		  </p>
+		  <hr>
+		  <h4>Result</h4>
+		  <p>
+			Below is the result from applying equirectangular transformation to merged HDR log irradiance image.
+
+          </p>
+		  <div class="row">
+            <img src="img/ball_equirectangular_log.jpg" class="col-xs-12" />
+		  </div>
+		</div>
+	  </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">	
+          <div class="panel-title">
+            <h3>Rendering synthetic objects into photographs</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <h4>Background Image</h4>
+          <p>
+            This is a countertop in our apartment.
+          </p>
+          <div class="row">
+            <img src="img/table_empty.jpg" class="col-xs-12" />
+		  </div>
+          <hr>
+		  <h4>Rendering</h4>
+		  <div class="row">
+            <div class="col-xs-12">
+              <div class="img-compare">
+                <img src="img/output_empty_new.png" />
+                <img src="img/output_full_new.png" />
+              </div>
+            </div>
+		  </div>
+		  <div class="row">
+            <div class="col-xs-12">
+              <div class="img-compare">
+                <img src="img/output_full_new.png" />
+                <img src="img/output_mask_new.png" />
+              </div>
+            </div>
+		  </div>
+		  <hr>
+		  <h4>Compositing Result</h4>
+		  <div class="row">
+            <img src="img/output_new.jpg" class="col-xs-12" />
+		  </div>
+		  <hr>
+		  <h4>Another Result</h4>
+		  <div class="row">
+            <div class="col-xs-12">
+              <div class="img-compare">
+                <img src="img/output_empty_close.png" />
+                <img src="img/output_full_close.png" />
+              </div>
+            </div>
+		  </div>
+		  <br/>
+		  <div class="row">
+            <div class="col-xs-12">
+              <div class="img-compare">
+                <img src="img/output_full_close.png" />
+                <img src="img/output_mask_close.png" />
+              </div>
+            </div>
+		  </div>
+		  <br/>
+		  <div class="row">
+            <img src="img/output_close.jpg" class="col-xs-12" />
+		  </div>
+        </div>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <h3>Bells & Whistles</h3>
+          </div>
+        </div>
+        <div class="panel-body">
+          <h4>Color2Gray</h4>
+          <p>
+            The method here solves a least square problem to minimize the difference between result gradient and the one with the maximum magnitude among source gradients of each RGB channel.
+            It also minimizes the difference between top left result pixel and top left rgb2gray pixel,
+            in order to fix the solution constant. It preserves the gradients of the source image better than rgb2gray.
+          </p>
+          <p>
+            Here are the results,
+            with the rgb2gray image as "Before" and the least square method image as "After".
+          </p>
+          <div class="row">
+            <img src="img/color_blind4.png" class="col-sm-3 col-xs-12" />
+            <div class="col-sm-3 col-xs-12">
+              <div class="img-compare">
+                <img src="img/color_blind4_gray_direct.png" width="100%" />
+                <img src="img/color_blind4_gray.png" width="100%"/>
+              </div>
+            </div>
+            <img src="img/color_blind8.png" class="col-sm-3 col-xs-12" />
+            <div class="col-sm-3 col-xs-12">
+              <div class="img-compare">
+                <img src="img/color_blind8_gray_direct.png" width="100%" />
+                <img src="img/color_blind8_gray.png" width="100%" />
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <h4>Laplacian Pyramid Blending</h4>
+          <p>
+            The Laplacian pyramid method uses the Gaussian pyramids of the mask to blend the Laplacian pyramids of the source and the target image.
+            It then collapses the result Laplacian pyramids to find the result image.
+            Therefore, it transitions lower frequency details more slowly.
+            It can preserve the color of the source image better than the Poisson method,
+            but the blending might not look as natural.<br/>
+            To collapse the pyramids, the sub-sampled image in the last round of pyramid construction is used as the base Laplacian image.
+          </p>
+
+          <p>
+            The Laplacian method produces a slightly better result for the image of Jensun Huang.
+          </p>
+          <div class="row">
+            <img src="img/star.jpg" class="col-sm-4 col-xs-12" />
+            <img src="img/huang_small.jpg" class="col-sm-4 col-xs-12" />
+            <img src="img/huang_small_laplacian_temp.jpg" class="col-sm-4 col-xs-12" />
+          </div>
+          <br/>
+          <div class="row">
+            <img src="img/huang_small_laplacian.jpg" class="col-sm-8 col-sm-offset-2 col-xs-12" />
+          </div>
+
+          <hr>
+
+          <p>
+            Here the Laplacian method preserves the color of the UFO better.
+            It also preserves high frequency details around the UFO without blending artifacts.
+            The blending displays a dark region around it, though.
+          </p>
+          <div class="row">
+            <img src="img/ufo2.jpg" class="col-sm-4 col-xs-12" />
+            <img src="img/siebel_small.jpg" class="col-sm-4 col-xs-12" />
+            <img src="img/siebel_small_laplacian_temp.jpg" class="col-sm-4 col-xs-12" />
+          </div>
+          <br/>
+          <div class="row">
+            <img src="img/siebel_small_laplacian.jpg" class="col-sm-8 col-sm-offset-2 col-xs-12" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(window).on('load', function(){ $(".img-compare").twentytwenty({default_offset_pct: 0.35}); });
+</script>
+</body>
+</html>
