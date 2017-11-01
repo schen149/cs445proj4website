@@ -150,20 +150,25 @@
           </div>
         </div>
         <div class="panel-body">
-          <h4>Equirectangular transformation</h4>
+          <h4>Equirectangular Transformation</h4>
           <p>
-            For Equirectangular transformation, we first estimates the normal vector of the mirror ball at each pixel location. 
-			By assuming that the mirror is a perfect sphere centered at the center of the image, and the image lies on the XY-plane, 
-			we get the Z component of the normal vector by solving X^2 + Y^2 + Z^2 = R^2. 
-			From the normal vectors and a fixed viewing direction, we can calculate the reflection vector on each pixel of the mirrorball image.  
-			Then we convert reflection vectors obtained to spherical coordinates. 
-			Becuase the X axis of the equirectangular map corresponds to the latitude, and Y axis corresponds to the longtitude, 
-			we estimate pixel value (by separate color channels) of equirectangular map from the interpolation of the spherical coordinates and the corresponding pixel value.
-		  </p>
-		  <hr>
-		  <h4>Result</h4>
-		  <p>
-			Below is the result from applying equirectangular transformation to merged HDR log irradiance image.
+            For Equirectangular transformation,
+            we first estimates the normal vector of the mirror ball at each pixel location.
+            By assuming that the mirror ball is a perfect sphere with radius = 1 centered at the center of the image,
+            and the image lies on the XY-plane,
+            we get the Z component of the normal vector by solving X^2 + Y^2 + Z^2 = 1.
+            From the normal vectors and a fixed viewing direction,
+            we can calculate the reflection vector on each pixel of the mirrorball image.
+            Then we convert reflection vectors obtained to spherical coordinates.
+            Becuase the X axis of the equirectangular map corresponds to the latitude,
+            and Y axis corresponds to the longitude,
+            we estimate pixel value (by separate color channels) of equirectangular map based on the interpolated function from the spherical coordinates to the corresponding pixel value.
+          </p>
+
+          <hr>
+          <h4>Result</h4>
+          <p>
+            Below is the result from applying equirectangular transformation to merged HDR log irradiance image.
 
           </p>
 		  <div class="row">
@@ -174,7 +179,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">	
           <div class="panel-title">
-            <h3>Rendering synthetic objects into photographs</h3>
+            <h3>Rendering Synthetic Objects Into Photographs</h3>
           </div>
         </div>
         <div class="panel-body">
@@ -185,8 +190,12 @@
           <div class="row">
             <img src="img/table_empty.jpg" class="col-xs-12" />
 		  </div>
+
           <hr>
-		  <h4>Rendering</h4>
+          <h4>Rendering</h4>
+          <p>
+            Here are the rendered image without and with synthetic objects.
+          </p>
 		  <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
@@ -195,6 +204,11 @@
               </div>
             </div>
 		  </div>
+
+          <br>
+          <p>
+            Here are the rendered image with synthetic objects and the mask of rendered objects.
+          </p>
 		  <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
