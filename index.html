@@ -18,9 +18,14 @@
 <div class="container">
   <div class="page-header" id="banner">
     <div class="row">
-      <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+      <div class="col-sm-7 col-sm-offset-1 col-xs-12">
         <h1>CS 445 Project #4</h1>
         <p class="lead">Xiaotian Le (xle2) & Sihao Chen (schen149)</p>
+      </div>
+      <div class="col-sm-3 col-xs-12">
+        <a href="thumbnail.jpg" target="_blank">
+          <img src="thumbnail.jpg" class="col-xs-12" />
+        </a>
       </div>
     </div>
   </div>
@@ -36,12 +41,12 @@
         <div class="panel-body">
 		      <h4>Data Collection</h4>
           <div class="row exif">
-            <img src="img/ball_2.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1/13 s<br>ISO: 100" />
-            <img src="img/ball_3.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1/3 s<br>ISO: 100" />
+            <img src="img/ball_2.jpg" class="col-sm-6 col-xs-12" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1/13 s<br>ISO: 100" />
+            <img src="img/ball_3.jpg" class="col-sm-6 col-xs-12" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1/3 s<br>ISO: 100" />
           </div>
           <div class="row exif">
-            <img src="img/ball_4.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1.3 s<br>ISO: 100" />
-            <img src="img/ball_5.jpg" class="col-xs-6" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 5 s<br>ISO: 100" />
+            <img src="img/ball_4.jpg" class="col-sm-6 col-xs-12" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 1.3 s<br>ISO: 100" />
+            <img src="img/ball_5.jpg" class="col-sm-6 col-xs-12" title="Camera: SONY ILCE-7RM2<br>Lens: FE 90mm F2.8 Macro G OSS<br>Aperture: f/16<br>Shutter speed: 5 s<br>ISO: 100" />
           </div>
 
           <hr>
@@ -54,13 +59,13 @@
             assuming that g(Z) = ln(Z),
             which is not true here.
           </p>
-		  <div class="row">
-            <img src="img/ball_hdr_naive_log_1.jpg" class="col-xs-6" />
-			<img src="img/ball_hdr_naive_log_2.jpg" class="col-xs-6" />
-		  </div>
-		  <div class="row">
-			<img src="img/ball_hdr_naive_log_3.jpg" class="col-xs-6" />
-			<img src="img/ball_hdr_naive_log_4.jpg" class="col-xs-6" />
+          <div class="row">
+            <img src="img/ball_hdr_naive_log_1.jpg" class="col-sm-6 col-xs-12" />
+            <img src="img/ball_hdr_naive_log_2.jpg" class="col-sm-6 col-xs-12" />
+          </div>
+          <div class="row">
+            <img src="img/ball_hdr_naive_log_3.jpg" class="col-sm-6 col-xs-12" />
+            <img src="img/ball_hdr_naive_log_4.jpg" class="col-sm-6 col-xs-12" />
           </div>
 
           <br/>
@@ -126,20 +131,22 @@
             The response method correctly estimate the function,
             so that all shadow and highlight areas are natural.
           </p>
-		  <div class="row">
-		    <div class="col-sm-6 col-xs-12">
+          <div class="row">
+            <div class="col-sm-6 col-xs-12">
               <div class="img-compare">
                 <img src="img/ball_hdr_naive_log.jpg" />
                 <img src="img/ball_hdr_weighted_log.jpg" />
               </div>
+              <p>Naive vs. Weighted</p>
             </div>
-			<div class="col-sm-6 col-xs-12">
+            <div class="col-sm-6 col-xs-12">
               <div class="img-compare">
                 <img src="img/ball_hdr_weighted_log.jpg" />
                 <img src="img/ball_hdr_response_log.jpg" />
               </div>
+              <p>Weighted vs. Response</p>
             </div>
-		  </div>
+          </div>
         </div>
       </div>
 
@@ -150,20 +157,25 @@
           </div>
         </div>
         <div class="panel-body">
-          <h4>Equirectangular transformation</h4>
+          <h4>Equirectangular Transformation</h4>
           <p>
-            For Equirectangular transformation, we first estimates the normal vector of the mirror ball at each pixel location. 
-			By assuming that the mirror is a perfect sphere centered at the center of the image, and the image lies on the XY-plane, 
-			we get the Z component of the normal vector by solving X^2 + Y^2 + Z^2 = R^2. 
-			From the normal vectors and a fixed viewing direction, we can calculate the reflection vector on each pixel of the mirrorball image.  
-			Then we convert reflection vectors obtained to spherical coordinates. 
-			Becuase the X axis of the equirectangular map corresponds to the latitude, and Y axis corresponds to the longtitude, 
-			we estimate pixel value (by separate color channels) of equirectangular map from the interpolation of the spherical coordinates and the corresponding pixel value.
-		  </p>
-		  <hr>
-		  <h4>Result</h4>
-		  <p>
-			Below is the result from applying equirectangular transformation to merged HDR log irradiance image.
+            For Equirectangular transformation,
+            we first estimates the normal vector of the mirror ball at each pixel location.
+            By assuming that the mirror ball is a perfect sphere with radius = 1 centered at the center of the image,
+            and the image lies on the XY-plane,
+            we get the Z component of the normal vector by solving X^2 + Y^2 + Z^2 = 1.
+            From the normal vectors and a fixed viewing direction,
+            we can calculate the reflection vector on each pixel of the mirrorball image.
+            Then we convert reflection vectors obtained to spherical coordinates.
+            Becuase the X axis of the equirectangular map corresponds to the latitude,
+            and Y axis corresponds to the longitude,
+            we estimate pixel value (by separate color channels) of equirectangular map based on the interpolated function from the spherical coordinates to the corresponding pixel value.
+          </p>
+
+          <hr>
+          <h4>Result</h4>
+          <p>
+            Below is the result from applying equirectangular transformation to merged HDR log irradiance image.
 
           </p>
 		  <div class="row">
@@ -174,7 +186,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">	
           <div class="panel-title">
-            <h3>Rendering synthetic objects into photographs</h3>
+            <h3>Rendering Synthetic Objects Into Photographs</h3>
           </div>
         </div>
         <div class="panel-body">
@@ -185,8 +197,12 @@
           <div class="row">
             <img src="img/table_empty.jpg" class="col-xs-12" />
 		  </div>
+
           <hr>
-		  <h4>Rendering</h4>
+          <h4>Rendering</h4>
+          <p>
+            Here are the rendered image without and with synthetic objects.
+          </p>
 		  <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
@@ -195,6 +211,11 @@
               </div>
             </div>
 		  </div>
+
+          <br>
+          <p>
+            Here are the rendered image with synthetic objects and the mask of rendered objects.
+          </p>
 		  <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
@@ -203,18 +224,20 @@
               </div>
             </div>
 		  </div>
-		  <hr>
-		  <h4>Compositing Result</h4>
-		  <div class="row">
+
+          <br>
+          <h4>Compositing Result<a href="img/output_new.jpg" target="_blank" class="pull-right">Full Resolution</a></h4>
+          <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
                 <img src="img/table_empty.jpg" />
                 <img src="img/output_new.jpg" />
               </div>
-			</div>
-		  </div>
-		  <hr>
-		  <h4>Another Result</h4>
+            </div>
+          </div>
+
+          <hr>
+          <h4>Another Result</h4>
 		  <div class="row">
             <div class="col-xs-12">
               <div class="img-compare">
@@ -232,15 +255,17 @@
               </div>
             </div>
 		  </div>
-		  <br/>
-		  <div class="row">
-		    <div class="col-xs-12">
+
+          <br/>
+          <h4>Compositing Result<a href="img/output_close.jpg" target="_blank" class="pull-right">Full Resolution</a></h4>
+          <div class="row">
+            <div class="col-xs-12">
               <div class="img-compare">
-                  <img src="img/table_empty.jpg" />
-                  <img src="img/output_close.jpg" />
+                <img src="img/table_empty.jpg" />
+                <img src="img/output_close.jpg" />
               </div>
-			</div>
-		  </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -326,8 +351,8 @@
 </div>
 
 <script>
-    $(window).on('load', function(){ 
-			$(".img-compare").twentytwenty({default_offset_pct: 0.35}); 
+    $(window).on('load', function() {
+			$(".img-compare").twentytwenty({default_offset_pct: 0.12});
 			$(".exif").sliphover({
 				backgroundColor: 'rgba(0,0,0,0)'
 			});
